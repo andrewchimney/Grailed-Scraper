@@ -1,0 +1,2 @@
+# Grailed Scraper
+ scrapesGrailed
