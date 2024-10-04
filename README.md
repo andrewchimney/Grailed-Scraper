@@ -1,6 +1,6 @@
 # Grailed Scraper
 
-This is a project to web scrape grailed. Grailed is an online marketplace for new and secondhand clothes or accessories. 
+This is a project to web scrape the website Grailed. Grailed is an online marketplace for new and secondhand clothes or accessories. 
 
 # Built With
 
