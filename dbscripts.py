@@ -91,11 +91,10 @@ def graphPrice(grails):
     
 conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="127.0.0.1")
 #insert()
-
-grails = get_table_data()
-print(len(grails))
-graphPrice(grails)
-graphConditions(grails)
+#grails = get_table_data()
+#print(len(grails))
+#graphPrice(grails)
+#graphConditions(grails)
 #create_table()
 #truncate_table()
      

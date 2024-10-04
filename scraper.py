@@ -16,9 +16,13 @@ driver = webdriver.Chrome(options=options)
 Link =[]
 scroll_count=0
 
-driver.get("https://www.grailed.com/designers/chrome-hearts/bags-luggage")
-
+PAGE_TO_SCRAPE= "https://www.grailed.com/designers/chrome-hearts/bags-luggage"
 SCROLL_PAUSE_TIME = 3
+
+
+
+driver.get(PAGE_TO_SCRAPE)
+
 
 last_height = driver.execute_script("return document.body.scrollHeight")
 
@@ -34,7 +38,7 @@ while True:
     if new_height == last_height:
         break
     last_height = new_height
-    driver.save_screenshot('scroll.png')
+    driver.save_screenshot('./pictures/scroll.png')
     scroll_count+=1
 
 results = driver.find_elements(by=By.XPATH, value='//a[@class="listing-item-link"]')
@@ -43,7 +47,7 @@ for result in results:
 
 for link in Link:
     driver.get(link)
-    driver.save_screenshot('item.png')
+    driver.save_screenshot('./pictures/item.png')
     try:
         #checks to make sure the item isn't sold
         driver.find_element(by=By.XPATH, value='//div[@class="Text Callout_callout__1Kvdw Simple_message__RkJl_"]').text
@@ -90,58 +94,3 @@ for link in Link:
                         ON CONFLICT(id) DO UPDATE SET username=%s,designer=%s,price=%s,description=%s, sub_title=%s,link=%s,size=%s,color=%s,condition=%s;""",
             (id,username,designer,price,description,sub_title,link,size,color,condition,username,designer,price,description,sub_title,link,size,color,condition))
             conn.commit()
-"""INSERT INTO grails(id, username, designer, price, description,sub_title, link,size, color, condition)
-VALUES (60304042,'cd','Chrome Hearts',200,'Chrome Hearts Glasses Case Black Variation 100% Authentic No Returns/Refunds *Missing Dagger Zipper','Chrome Hearts Glasses','https://www.grailed.com/listings/60304072-chrome-hearts-chrome-hearts-glasses-case?g_aidx=Listing_production&g_aqid=8871e6fba87a4d32c6114dba8caf4b41','ONE SIZE','Black','Worn')
-ON CONFLICT(id) DO UPDATE SET username='cd',designer='Chrome Hearts',price=201,description='des', sub_title='as',link='dfg',size='m',color='red',condition='d';
-"""
-driver.quit()
-
-"""
-starttime = time.monotonic()
-while True:
-    print("tick")
-    with conn:
-        with conn.cursor() as curs:
-            
-            curs.execute(" INSERT INTO grails (username, designer, price, description, sub_title, link, size, color, condition) VALUES (%s, %s, %s,%s, %s, %s,%s,%s,%s);",
-        ("Haydensmith0968",300,"Chrome Hearts","asldfjalsdf","https://www.grailed.com/listings/59977498-chrome-hearts-chrome-hearts-giss-brown-glasses-demo-frames?g_aidx=Listing_sold_production&g_aqid=48e000c7490fe704ecf9e03a83fa173a","ONE SIZE","Gently Used"))
-            
-        
-            curs.execute(
-                "SELECT * FROM grails;"
-                )
-            for record in curs:
-                print(record)
-    conn.commit
-    time.sleep(10 - ((time.monotonic() - starttime) % 10))
-    """
-"""
-with conn:
-        with conn.cursor() as curs:
-            
-            curs.execute("CREATE TABLE grails(
-                         id INT GENERATED ALWAYS AS IDENTITY, 
-                         username varchar, 
-                         designer varchar,
-                         price INT,
-                         description varchar,
-                         sub_title varchar,
-                         link VARCHAR,
-                         size VARCHAR,
-                         color VARCHAR,
-                         condition VARCHAR);")
-            #for record in curs:
-            #   print(record)
-            #conn.commit()
-            """
-"""CREATE TABLE grails(
-                         id int NOT NULL UNIQUE,
-                         username varchar, 
-                         designer varchar,
-                         price INT,
-                         description varchar,
-                         sub_title varchar,
-                         link VARCHAR,
-                         size VARCHAR,
-                         color VARCHAR,
-                         condition VARCHAR);"""
