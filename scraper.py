@@ -2,21 +2,21 @@ import time
 import psycopg2
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="database-1.chiyyamckstw.us-east-2.rds.amazonaws.com")
+conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="127.0.01")
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:125.0) Gecko/20100101 Firefox/125.0'
 options = webdriver.ChromeOptions() 
 options.add_argument('user-data-dir=/Users/Andrew/Library/Application Support/Google/Chrome')
 options.add_argument('--profile-directory=Profile 24')
 options.add_argument('loadsImagesAutomatically initial=false')
 options.add_argument('--blink-settings=imagesEnabled=false')
-options.add_argument('--headless') 
+#options.add_argument('--headless') 
 options.add_argument("--window-size=1920,1080")
 options.add_argument(f'user-agent={user_agent}')
 driver = webdriver.Chrome(options=options)
 Link =[]
 scroll_count=0
 
-driver.get("https://www.grailed.com/shop/M5M4fRml0g")
+driver.get("https://www.grailed.com/designers/chrome-hearts/bags-luggage")
 
 SCROLL_PAUSE_TIME = 3
 
@@ -45,7 +45,8 @@ for link in Link:
     driver.get(link)
     driver.save_screenshot('item.png')
     try:
-        driver.find_element(by=By.XPATH, value='//div[@class="Text Callout_callout__1Kvdw Fancy_message__uVdQ5"]').text
+        #checks to make sure the item isn't sold
+        driver.find_element(by=By.XPATH, value='//div[@class="Text Callout_callout__1Kvdw Simple_message__RkJl_"]').text
         id=link[33:41]
         if id[7]=="-":
             id=id[0:6]
@@ -53,6 +54,7 @@ for link in Link:
             curs.execute("DELETE FROM grails WHERE id=%s", (id,))
             conn.commit()
     except Exception as e:
+        time.sleep(1)
         username = driver.find_element(by=By.XPATH, value='//span[@class="Text Subhead_subhead__70fsG UsernameWithBadges_usernameText__ookiK"]').text
         designers = driver.find_elements(by=By.XPATH, value='//a[@class="Designers_designer__quaYl"]')
         designer=''
@@ -133,10 +135,10 @@ with conn:
             #conn.commit()
             """
 """CREATE TABLE grails(
-                         id INT GENERATED ALWAYS AS IDENTITY, 
+                         id int NOT NULL UNIQUE,
                          username varchar, 
                          designer varchar,
-                         price INT
+                         price INT,
                          description varchar,
                          sub_title varchar,
                          link VARCHAR,

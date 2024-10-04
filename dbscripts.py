@@ -15,7 +15,6 @@ class grail():
         self.color =grail_tuple[8]
         self.condition = grail_tuple[9]
 def truncate_table():
-    conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="database-1.chiyyamckstw.us-east-2.rds.amazonaws.com")
     with conn:
         with conn.cursor() as curs:
             
@@ -25,7 +24,6 @@ def truncate_table():
                 )
         conn.commit()
 def get_table_data():
-    conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="database-1.chiyyamckstw.us-east-2.rds.amazonaws.com")
     grails=[]
     with conn:
         with conn.cursor() as curs:
@@ -39,17 +37,15 @@ def get_table_data():
         conn.commit()
     return grails
 def insert():
-    conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="database-1.chiyyamckstw.us-east-2.rds.amazonaws.com")
     with conn.cursor() as curs:
         curs.execute("INSERT INTO grails(username, designer, price, description, sub_title, link, size, color, condition) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
             ('username','designer',1,'description','sub_title','link','size','color','condition'))
         conn.commit()
 def create_table():
-    conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="database-1.chiyyamckstw.us-east-2.rds.amazonaws.com")
     with conn.cursor() as curs:
             curs.execute(
                 """CREATE TABLE grails(
-                         id INT GENERATED ALWAYS AS IDENTITY, 
+                         id int NOT NULL UNIQUE,
                          username varchar, 
                          designer varchar,
                          price INT,
@@ -76,7 +72,7 @@ def graphConditions(grails):
     plt.bar(data.keys(),data.values())
     plt.xlabel("Conditions")
     plt.ylabel("Number")
-    plt.title("Conditions of Items on Grailed")
+    plt.title("Conditions Chrome Hearts Bags on Grailed")
     plt.show()
 
 def graphPrice(grails):
@@ -88,20 +84,18 @@ def graphPrice(grails):
     median = statistics.median(prices)
     print(average)
     print(median)
+    plt.xlabel("Bags")
+    plt.ylabel("Price usd")
+    plt.title("Boxplot of Prices of Chrome Hearts Bags on Grailed")
     plt.show()
+    
+conn = psycopg2.connect(dbname="databased", user="postgres", password="skippy123", port="5432", host="127.0.0.1")
 #insert()
+
 grails = get_table_data()
 print(len(grails))
 graphPrice(grails)
-#graphConditions(grails)
+graphConditions(grails)
 #create_table()
-
-"""
-conn = psycopg2.connect(dbname="databased", user="django", password="skippy123")
-with conn.cursor() as curs:
-    curs.execute(
-                "drop table grails"
-                )
-    conn.commit()
-"""
+#truncate_table()
      
