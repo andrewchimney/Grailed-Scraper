@@ -26,8 +26,11 @@ I also recorded a video of the scraper in action. Scrolling begins at 0:04 and l
 
 <video width="1000" height="800" controls> <source src="./pictures/grailed scraper in action.mov" type="video/mp4"> </video>
 
-After the data was collected, I ran some functions in dbscripts.py to analyze the data. 
+The data from each listing is then added to a psql table.
 
+<img src="./pictures/tablegrails.png" alt="item screenshot" width="1000"/>
+
+With all the data added, I then ran some functions from dbscripts.py to see some analysis.
 below is graphConditions(grails)
 
 <img src="./pictures/conditions.png" alt="item screenshot" width="1000"/>
