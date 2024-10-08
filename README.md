@@ -12,10 +12,6 @@ This project consists of two python files: scraper.py and dbscripts.py. After se
 
 # In Action
 
-
-https://github.com/user-attachments/assets/50f187b1-c51e-4020-b868-f7d1127b86b3
-
-
 I used Grailed Scraper to Scrape every listing under Chome Hearts Bag. https://www.grailed.com/designers/chrome-hearts/bags-luggage
 
 A screenshot is taken after every scroll. Here is the screenshot taken after the final scroll. 
@@ -28,7 +24,7 @@ A screenshot is taken after every link is visited.
 
 I also recorded a video of the scraper in action. Scrolling begins at 0:04 and link visiting begins at 0:34.
 
-<video width="1000" height="800" controls> <source src="https://github.com/user-attachments/assets/50f187b1-c51e-4020-b868-f7d1127b86b3" type="video/mp4"> </video>
+https://github.com/user-attachments/assets/50f187b1-c51e-4020-b868-f7d1127b86b3
 
 After the data was collected, I ran some functions in dbscripts.py to analyze the data. 
 
